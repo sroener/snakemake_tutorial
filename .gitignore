@@ -8,5 +8,7 @@
 data/
 # mapped reads folder
 mapped_reads/
-# sorted reads
+# sorted reads folder
 sorted_reads/
+# calls folder
+calls/
