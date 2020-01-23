@@ -1,5 +1,6 @@
-#ipython checkpoints
+# ipython checkpoints
 .ipynb_checkpoints
-#vscode config
+# vscode config
 .vscode
-
+# data folder
+data/
