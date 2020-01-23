@@ -2,8 +2,8 @@
 rule bwa_map:
     input:
         "data/genome.fa",
-        "data/samples/A.fastq"
+        "data/samples/{sample}.fastq"
     output:
-        "mapped_reads/A.bam"
+        "mapped_reads/{sample}.bam"
     shell: 
         "bwa mem {input} | samtools view -Sb - > {output}"
