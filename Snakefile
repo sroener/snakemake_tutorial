@@ -1,3 +1,4 @@
+SAMPLES = ["A", "B"]
 
 rule bwa_map:
     input:
@@ -23,4 +24,15 @@ rule samtools_index:
     output:
         "sorted_reads/{sample}.bam.bai"
     shell:
-        "samtoosl index {index}"
+        "samtoosl index {input}"
+
+rule bcftools_call:
+    input:
+        fa="data/genome.fa",
+        bam=expand("sorted_reads/{sample}.bam", sample=SAMPLES),
+        bai=expand("sorted_reads/{sample}.bam.bai", sample=SAMPLES)
+    output:
+        "calls/all.vcf"
+    shell:
+        "samtools mpileup -g -f {input.fa} {input.bam} | "
+        "bcftools call -mv - > {output}"
