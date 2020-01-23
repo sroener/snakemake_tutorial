@@ -1,5 +1,9 @@
 SAMPLES = ["A", "B"]
 
+rule all:
+    input:
+        "plots/quals.svg"
+
 rule bwa_map:
     input:
         "data/genome.fa",
@@ -24,7 +28,7 @@ rule samtools_index:
     output:
         "sorted_reads/{sample}.bam.bai"
     shell:
-        "samtoosl index {input}"
+        "samtools index {input}"
 
 rule bcftools_call:
     input:
@@ -36,3 +40,11 @@ rule bcftools_call:
     shell:
         "samtools mpileup -g -f {input.fa} {input.bam} | "
         "bcftools call -mv - > {output}"
+
+rule plot_quals:
+    input:
+        "calls/all.vcf"
+    output:
+        "plots/quals.svg"
+    script:
+        "scripts/plot-quals.py"
