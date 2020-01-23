@@ -2,5 +2,9 @@
 .ipynb_checkpoints
 # vscode config
 .vscode
+# snakemake folder
+.snakemake/
 # data folder
 data/
+# mapped reads folder
+mapped_reads/
