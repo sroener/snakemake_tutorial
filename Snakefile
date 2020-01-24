@@ -7,7 +7,7 @@ rule all:
 rule bwa_map:
     input:
         "data/genome.fa",
-        "data/samples/{sample}.fastq"
+        lambda wildcards: config["samples"][wildcards.sample]
     output:
         "mapped_reads/{sample}.bam"
     shell: 
