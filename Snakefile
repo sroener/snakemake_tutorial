@@ -10,8 +10,11 @@ rule bwa_map:
         lambda wildcards: config["samples"][wildcards.sample]
     output:
         "mapped_reads/{sample}.bam"
+    params:
+        rg=r"@RG\tID:{sample}\tSM:{sample}"
+    threads: 8
     shell: 
-        "bwa mem {input} | samtools view -Sb - > {output}"
+        "bwa mem -R '{params.rg}' -t {threads} {input} | samtools view -Sb - > {output}"
 
 rule samtools_sort:
     input:
