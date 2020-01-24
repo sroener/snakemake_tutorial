@@ -10,6 +10,8 @@ rule bwa_map:
         lambda wildcards: config["samples"][wildcards.sample]
     output:
         "mapped_reads/{sample}.bam"
+    log:
+        "logs/bwa_mem/{sample}.log"
     params:
         rg=r"@RG\tID:{sample}\tSM:{sample}"
     threads: 8
@@ -40,6 +42,8 @@ rule bcftools_call:
         bai=expand("sorted_reads/{sample}.bam.bai", sample=config["samples"])
     output:
         "calls/all.vcf"
+    log:
+        "logs/bcftools_call/all.log"
     shell:
         "samtools mpileup -g -f {input.fa} {input.bam} | "
         "bcftools call -mv - > {output}"

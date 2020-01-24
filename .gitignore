@@ -12,3 +12,5 @@ mapped_reads/
 sorted_reads/
 # calls folder
 calls/
+#log folder
+logs/
